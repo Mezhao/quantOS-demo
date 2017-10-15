@@ -1,10 +1,9 @@
-[User Guide](#User Guide)<br/>
+[DataApi](#DataApi)<br/>
 　[DataApi](#DataApi)<br/>
 　　[1.1.1三级目录](#1.1.1)<br/>
 
 
-<!-- # User Guide -->
-<h1 id = "User Guide">User Guide</h1>
+# User Guide
 
 本页面给用户提供了一个简洁清晰的入门指南<br/>
 详细的API Reference请参考
@@ -17,9 +16,12 @@
 
 本产品提供了金融数据api，方便用户调用接口获取各种数据，通过python的api调用接口，返回DataFrame格式的数据和消息，以下是用法
 
-### 引入API
+<!-- ### 导入接口 -->
+<h3 id = "导入接口">引入API</h3>
+在python程序里面导入module，然后用注册的用户帐号登录就可以使用行情和参考数据的接口来获取数据了
 
-#### 导入接口
+<!-- #### 导入接口 -->
+<h4 id = "导入接口">导入接口</h4>
 ```python
 import data_api
 from data_api import DataApi
@@ -30,11 +32,15 @@ api = DataApi()
 api.login("demo", "666666") # 示例账户，用户需要改为自己注册的账户
 ```
 
-### 数据分为两大部分：
+### 调用数据接口
+
+主要数据主要分为两大类：
+
 - **市场数据**，目前可使用的数据包括日线，分钟线
 - **参考数据**，包括财务数据、公司行为数据、指数成份数据等
 
-### 市场数据获取
+<!-- ### 行情数据获取 -->
+<h3 id = "行情数据获取">行情数据获取</h3>
 
 #### 获取日线行情
 代码示例：
@@ -104,7 +110,8 @@ df,msg = api.bar_quote(
 |3289.2133  |3285.9129  |000001.SH  |101500 |20170823   |535085000|
 |3287.4892  |3284.6076  |000001.SH  |102000 |20170823   |426738700|
 
-### 基本数据获取
+<!-- ### 基本数据获取 -->
+<h3 id = "基本数据获取">基本数据获取</h3>
 
 #### 获取证券基础信息
 代码示例：
@@ -417,18 +424,18 @@ df, msg = api.query(
 结果示例: -->
 
 
+<!-- ## Dataview -->
+<h2 id = "Dataview">Dataview</h2>
 
-
-
-
-## Dataview
-
-## Research
+<!-- ## Research -->
+<h2 id = "Research">Research</h2>
 
 此处填写研究指南
 
-## Strategy
+<!-- ## Strategy -->
+<h2 id = "Strategy">Strategy</h2>
 
-## BackTest
+<!-- ## BackTest -->
+<h2 id = "BackTest">BackTest</h2>
 
 此处填写回测指南
