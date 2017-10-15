@@ -4,8 +4,8 @@
 
 详细的API Reference请参考
 
-- [行情数据API](/market_data.md)
-- [参考数据API](/base_data.md)
+- [行情数据API](market_data.md "行情数据API")
+- [参考数据API](base_data.md "参考数据API")
 
 ## DataApi 
 
