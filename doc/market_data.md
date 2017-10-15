@@ -1,4 +1,4 @@
-#行情数据
+# 行情数据
 
 ## 字典定义
 
@@ -31,7 +31,7 @@
 | 5m | 5分钟线 |
 | 15m | 15分钟线 |
 
-## 实时行情数据查询 quote
+<!-- ## 实时行情数据查询 quote
 
 输入标的代码（支持多标的），输出为最新市场行情，以dataframe格式返回，可指定返回字段，以fields参数标识。
 
@@ -50,7 +50,7 @@ df, msg = api.quote(
 
 | 字段 | 类型 | 说明 | 缺省 |
 | --- | --- | --- | --- |
-| symbol | string | [**标的代码**] [，支持多标的查询] | 不可缺省 |
+| symbol | string | **标的代码**支持多标的查询 | 不可缺省 |
 | fields | string | 需要返回字段，多字段以&#39;,&#39;隔开；为&quot;&quot;时返回所有字段 | &quot;&quot; |
 
 
@@ -68,17 +68,17 @@ df, msg = api.quote(
 | low | double | 最低价 |
 | last | double | 最新价 |
 | close | double | 收盘价 |
-| volume | int | 成交量（总） |
+| volume | double | 成交量（总） |
 | turnover | double | 成交金额（总） |
 | vwap | double | 当日平均成交均价，计算公式为成交金额除以成交量 |
-| oi | int | 持仓总量 |
+| oi | double | 持仓总量 |
 | settle | double | 今结算价 |
 | iopv | double | IOPV净值估值 |
 | limit_up | double | 涨停价 |
 | limit_down | double | 跌停价 |
 | preclose | double | 昨收盘价 |
 | presettle | double | 昨结算价 |
-| preoi | int | 昨持仓 |
+| preoi | double | 昨持仓 |
 | askprice1 | double | 申卖价1 |
 | askprice2 | double | 申卖价2 |
 | askprice3 | double | 申卖价3 |
@@ -89,16 +89,16 @@ df, msg = api.quote(
 | bidprice3 | double | 申买价3 |
 | bidprice4 | double | 申买价4 |
 | bidprice5 | double | 申买价5 |
-| askvolume1 | int | 申卖量1 |
-| askvolume2 | int | 申卖量2 |
-| askvolume3 | int | 申卖量3 |
-| askvolume4 | int | 申卖量4 |
-| askvolume5 | int | 申卖量5 |
-| bidvolume1 | int | 申买量1 |
-| bidvolume2 | int | 申买量2 |
-| bidvolume3 | int | 申买量3 |
-| bidvolume4 | int | 申买量4 |
-| bidvolume5 | int | 申买量5 |
+| askvolume1 | double | 申卖量1 |
+| askvolume2 | double | 申卖量2 |
+| askvolume3 | double | 申卖量3 |
+| askvolume4 | double | 申卖量4 |
+| askvolume5 | double | 申卖量5 |
+| bidvolume1 | double | 申买量1 |
+| bidvolume2 | double | 申买量2 |
+| bidvolume3 | double | 申买量3 |
+| bidvolume4 | double | 申买量4 |
+| bidvolume5 | double | 申买量5 | -->
 
 
 ## 日线查询 daily
@@ -142,11 +142,11 @@ df, msg = api.daily(
 | high | double | 最高价 |
 | low | double | 最低价 |
 | close | double | 收盘价 |
-| volume | int | 成交量 |
+| volume | double | 成交量 |
 | turnover | double | 成交金额 |
 | vwap | double | 成交均价 |
 | settle | double | 结算价 |
-| oi | int | 持仓量 |
+| oi | double | 持仓量 |
 | trade\_status | string | 交易状态（&quot;停牌&quot;或者&quot;交易&quot;） |
 
 
@@ -157,8 +157,8 @@ df, msg = api.daily(
 输入参数：
 
 1. **标的代码** ，支持多标的查询，必要参数。
-2. 开始时间 (start\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若传入int类型，格式为HHMMSS，如93235。缺省为为开盘时间。
-3. 结束时间 (end\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若传入int类型，格式为HHMMSS，如9323。缺省为当前时间（日内）或者收盘时间（历史）。
+2. 开始时间 (start\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若为int类型，格式为HHMMSS，如93235。缺省为为开盘时间。
+3. 结束时间 (end\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若为int类型，格式为HHMMSS，如9323。缺省为当前时间（日内）或者收盘时间（历史）。
 4. 交易日 (trade\_date), string或者int类型：若为string类型，格式&#39;YYYY-MM-DD&#39;，如&#39;2017-08-01&#39;；若为int类型，格式为YYYYMMDD，如20170801。缺省为当前交易日。
 5. **分钟线类型** (freq),缺省为一分钟线 (&#39;1m&#39;)。
 6. 返回字段 (fields), 多字段以 &#39;,&#39; 隔开，缺省时全字段返回。
@@ -197,10 +197,10 @@ df,msg = api.bar(
 | high | double | bar内最高价 |
 | low | double | bar内最低价 |
 | close | double | bar内收盘价 |
-| volume | int | bar内成交量 |
+| volume | double | bar内成交量 |
 | turnover | double | bar内成交金额 |
 | vwap | double | bar内成交均价 |
-| oi | int | 当前持仓量 |
+| oi | double | 当前持仓量 |
 | settle | double | 结算价 |
 
 
@@ -211,8 +211,8 @@ df,msg = api.bar(
 输入参数：
 
 1. **标的代码** ，支持多标的查询，必要参数。
-2. 开始时间 (start\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若传入int类型，格式为HHMMSS，如93235。缺省为为开盘时间。
-3. 结束时间 (end\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若传入int类型，格式为HHMMSS，如9323。缺省为当前时间（日内）或者收盘时间（历史）。
+2. 开始时间 (start\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若为int类型，格式为HHMMSS，如93235。缺省为为开盘时间。
+3. 结束时间 (end\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若为int类型，格式为HHMMSS，如9323。缺省为当前时间（日内）或者收盘时间（历史）。
 4. 交易日 (trade\_date), string或者int类型：若为string类型，格式&#39;YYYY-MM-DD&#39;，如&#39;2017-08-01&#39;；若为int类型，格式为YYYYMMDD，如20170801。缺省为当前交易日。
 5. **分钟线类型** (freq), 缺省为一分钟线 (&#39;1m&#39;)。
 6. 返回字段 (fields), 多字段以 &#39;,&#39; 隔开，缺省时全字段返回。
@@ -252,10 +252,10 @@ df,msg = api.bar_quote(
 | high | double | bar内最高价 |
 | low | double | bar内最低价 |
 | close | double | bar内收盘价 |
-| volume | int | bar内成交量 |
+| volume | double | bar内成交量 |
 | turnover | double | bar内成交金额 |
 | vwap | double | bar内成交均价 |
-| oi | int | 当前持仓量 |
+| oi | double | 当前持仓量 |
 | settle | double | 结算价 |
 | askprice1 | double | 申卖价1 |
 | askprice2 | double | 申卖价2 |
@@ -267,27 +267,27 @@ df,msg = api.bar_quote(
 | bidprice3 | double | 申买价3 |
 | bidprice4 | double | 申买价4 |
 | bidprice5 | double | 申买价5 |
-| askvolume1 | int | 申卖量1 |
-| askvolume2 | int | 申卖量2 |
-| askvolume3 | int | 申卖量3 |
-| askvolume4 | int | 申卖量4 |
-| askvolume5 | int | 申卖量5 |
-| bidvolume1 | int | 申买量1 |
-| bidvolume2 | int | 申买量2 |
-| bidvolume3 | int | 申买量3 |
-| bidvolume4 | int | 申买量4 |
-| bidvolume5 | int | 申买量5 |
+| askvolume1 | double | 申卖量1 |
+| askvolume2 | double | 申卖量2 |
+| askvolume3 | double | 申卖量3 |
+| askvolume4 | double | 申卖量4 |
+| askvolume5 | double | 申卖量5 |
+| bidvolume1 | double | 申买量1 |
+| bidvolume2 | double | 申买量2 |
+| bidvolume3 | double | 申买量3 |
+| bidvolume4 | double | 申买量4 |
+| bidvolume5 | double | 申买量5 |
 
 
-## 历史行情数据查询 tick()
+<!-- ## 历史行情数据查询 tick()
 
 支持历史及日内行情数据查询，查询结果以dataframe返回。
 
 输入参数：
 
 1. **标的代码** ，支持多标的查询
-2. 开始时间 (start\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若传入int类型，格式为HHMMSS，如93235。缺省为为开盘时间。
-3. 结束时间 (end\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若传入int类型，格式为HHMMSS，如9323。缺省为当前时间（日内）或者收盘时间（历史）。
+2. 开始时间 (start\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若为int类型，格式为HHMMSS，如93235。缺省为为开盘时间。
+3. 结束时间 (end\_time), 精确到秒，string或者int类型：若为string类型，格式为&#39;HH:MM:SS&#39;，如&#39;09:32:35&#39;；若为int类型，格式为HHMMSS，如9323。缺省为当前时间（日内）或者收盘时间（历史）。
 4. 交易日 (trade\_date), string或者int类型：若为string类型，格式&#39;YYYY-MM-DD&#39;，如&#39;2017-08-01&#39;；若为int类型，格式为YYYYMMDD，如20170801。缺省为当前交易日。
 5. 返回字段 (fields), 多字段以 &#39;,&#39; 隔开，缺省时全字段返回。
 
@@ -324,17 +324,17 @@ df, msg = api.tick(
 | low | double | 最低价 |
 | last | double | 最新价 |
 | close | double | 收盘价 |
-| volume | int | 成交量（总） |
+| volume | double | 成交量（总） |
 | turnover | double | 成交金额（总） |
 | vwap | double | 当日平均成交均价，计算公式为成交金额除以成交量 |
-| oi | int | 持仓总量 |
+| oi | double | 持仓总量 |
 | settle | double | 今结算价 |
 | iopv | double | IOPV净值估值 |
 | high\_limit | double | 涨停价 |
 | low\_limit | double | 跌停价 |
 | preclose | double | 昨收盘价 |
 | presettle | double | 昨结算价 |
-| preoi | int | 昨持仓 |
+| preoi | double | 昨持仓 |
 | askprice1 | double | 申卖价1 |
 | askprice2 | double | 申卖价2 |
 | askprice3 | double | 申卖价3 |
@@ -345,15 +345,15 @@ df, msg = api.tick(
 | bidprice3 | double | 申买价3 |
 | bidprice4 | double | 申买价4 |
 | bidprice5 | double | 申买价5 |
-| askvolume1 | int | 申卖量1 |
-| askvolume2 | int | 申卖量2 |
-| askvolume3 | int | 申卖量3 |
-| askvolume4 | int | 申卖量4 |
-| askvolume5 | int | 申卖量5 |
-| bidvolume1 | int | 申买量1 |
-| bidvolume2 | int | 申买量2 |
-| bidvolume3 | int | 申买量3 |
-| bidvolume4 | int | 申买量4 |
-| bidvolume5 | int | 申买量5 |
+| askvolume1 | double | 申卖量1 |
+| askvolume2 | double | 申卖量2 |
+| askvolume3 | double | 申卖量3 |
+| askvolume4 | double | 申卖量4 |
+| askvolume5 | double | 申卖量5 |
+| bidvolume1 | double | 申买量1 |
+| bidvolume2 | double | 申买量2 |
+| bidvolume3 | double | 申买量3 |
+| bidvolume4 | double | 申买量4 |
+| bidvolume5 | double | 申买量5 | -->
 
 
