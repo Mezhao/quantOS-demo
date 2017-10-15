@@ -160,7 +160,7 @@ def test_backtest_analyze():
     print "generate report..."
     static_folder = fileio.join_relative_path("backtest/analyze/static")
     ta.gen_report(source_dir=static_folder, template_fn='report_template.html',
-                  css_fn='blueprint.css', out_folder=out_folder,
+                  out_folder=out_folder,
                   selected=selected_sec)
 
 if __name__ == "__main__":

@@ -9,7 +9,6 @@ def test_output():
     r = Report({'mytitle': 'Test Title', 'mytable': 'Hello World!'},
                source_dir=static_folder,
                template_fn='test_template.html',
-               css_fn='blueprint.css',
                out_folder='../output')
     r.generate_html()
     r.output_html()
