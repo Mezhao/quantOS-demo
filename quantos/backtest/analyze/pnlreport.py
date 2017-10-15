@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from data.basic.instrument import InstManager
+from quantos.data.basic.instrument import InstManager
 from quantos.backtest.backtest import common
 from quantos.data.basic.trade import Trade
 from quantos.data.calendar import Calendar

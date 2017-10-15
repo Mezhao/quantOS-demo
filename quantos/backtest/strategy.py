@@ -4,9 +4,9 @@ from abc import abstractmethod
 
 from quantos.backtest.gateway import PortfolioManager
 
-from backtest import common
-from event import EventEngine
-from pubsub import Subscriber
+from quantos.backtest import common
+from quantos.backtest.event import EventEngine
+from quantos.backtest.pubsub import Subscriber
 from quantos.backtest.event import eventType
 from quantos.backtest.alphastrategy import Strategy
 

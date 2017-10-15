@@ -1,5 +1,5 @@
 # encoding: utf-8
-from data.basic.instrument import InstManager
+from quantos.data.basic.instrument import InstManager
 
 
 def test_inst_manager():
