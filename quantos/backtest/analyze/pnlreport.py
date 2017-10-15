@@ -129,7 +129,7 @@ class PnlManager(object):
         report.sharp = mean_value / std_value * np.sqrt(240.0)
         return report
     
-    def generateReport(self):
+    def generateReport(self, output_format=""):
         daily_pnls = self.calcPnl(self.strategy.pm.trades)
         report = self.generateStatisticReport(daily_pnls)
         print "Total PNL: %f" % (report.total_pnl)
@@ -165,7 +165,8 @@ class PnlManager(object):
         plt.legend(loc='best')
         plt.grid(True, linestyle="--", color="black", linewidth="1")
         #        legend = ax.legend(loc='upper center', shadow=True, fontsize='x-large')
-        plt.show()
+        if output_format == 'plot':
+            plt.show()
         return report
     
     def initFromConfig(self, props, data_server):
@@ -353,9 +354,7 @@ class PnlManager(object):
 
 
 if __name__ == '__main__':
-    
-    props = {}
-    props['jsh.addr'] = 'tcp://10.2.0.14:61616'
+    props = dict()
     props['start_date'] = 20170702
     props['end_date'] = 20170712
     props['future_commission_rate'] = 0.005

@@ -120,7 +120,6 @@ def test_remote_data_service_industry():
     
     dates_arr = ds.get_trade_date(20140101, 20170505)
     res = align(df_value, df_ann, dates_arr)
-    print
     # df_ann = df.pivot(index='in_date', columns='symbol', values='in_date')
     # df_value = df.pivot(index=None, columns='symbol', values='industry1_code')
     
@@ -132,7 +131,6 @@ def test_remote_data_service_industry():
     # res_list = [align_single_df(df) for sec, df in dic_sec.viewitems()]
     res_list = [align_single_df(df) for sec, df in dic_sec.items()[:10]]
     res = pd.concat(res_list, axis=1)
-    print res
     
     
 def test_remote_data_service_industry_df():
@@ -166,7 +164,6 @@ def test_remote_data_service_fin_indicator():
     
     df_raw, msg = ds.query("lb.finIndicator", fields="",
                            filter=filter_argument, orderby="symbol")
-    print
 
 
 def test_remote_data_service_adj_factor():
@@ -190,4 +187,10 @@ def test_remote_data_service_inst_info():
     assert res.loc[0, 'buylot'] == 100
     
 if __name__ == "__main__":
-    test_remote_data_service_industry_df()
+    g = globals()
+    g = {k: v for k, v in g.items() if k.startswith('test_') and callable(v)}
+
+    for test_name, test_func in g.viewitems():
+        print "\nTesting {:s}...".format(test_name)
+        test_func()
+    print "Test Complete."

@@ -8,64 +8,64 @@ from quantos.data.py_expression_eval import Parser
 
 
 def test_logical_and_or():
+    import numpy as np
+    
     parser.parse('open + 3 && 1')
     res = parser.evaluate({'open': dfx})
-    import numpy as np
     assert np.all(res.values.flatten())
 
     parser.parse('open + 3 && 0.0')
     res = parser.evaluate({'open': dfx})
-    import numpy as np
     assert not np.all(res.values.flatten())
 
     
 def test_skew():
-    parser.set_capital('lower')
-    expression = parser.parse('ts_skewness(open,4)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    # parser.set_capital('lower')
+    expression = parser.parse('Ts_Skewness(open,4)')
+    res = parser.evaluate({'close': dfy, 'open': dfx})
+    # parser.set_capital('upper')
 
 
 def test_variables():
     expression = parser.parse('Ts_Skewness(open,4)+close / what')
-    assert set(expression.variables()) == {'open', 'close', 'what'}
+    res = set(expression.variables()) == {'open', 'close', 'what'}
     
     
 def test_product():
-    parser.set_capital('lower')
-    expression = parser.parse('product(open,2)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    # parser.set_capital('lower')
+    expression = parser.parse('Product(open,2)')
+    res = parser.evaluate({'close': dfy, 'open': dfx})
+    # parser.set_capital('upper')
 
 
 def test_rank():
     expression = parser.parse('Rank(close)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    res = parser.evaluate({'close': dfy, 'open': dfx})
 
 
 def test_tail():
     expression = parser.parse('Tail(close/open,0.99,1.01,1.0)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    res = parser.evaluate({'close': dfy, 'open': dfx})
 
 
 def test_step():
     expression = parser.parse('Step(close,10)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    res = parser.evaluate({'close': dfy, 'open': dfx})
 
 
 def test_decay_linear():
     expression = parser.parse('Decay_linear(open,2)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    res = parser.evaluate({'close': dfy, 'open': dfx})
 
 
 def test_decay_exp():
     expression = parser.parse('Decay_exp(open, 0.5, 2)')
-    print parser.evaluate({'close': dfy, 'open': dfx})
+    res = parser.evaluate({'close': dfy, 'open': dfx})
 
 
-def test_sgined_power():
+def test_signed_power():
     expression = parser.parse('SignedPower(close-open, 2)')
-    print dfx - dfy
-    
-    print parser.evaluate({'close': dfx, 'open': dfy})
+    res = parser.evaluate({'close': dfx, 'open': dfy})
 
 
 def test_ewma():
@@ -130,4 +130,28 @@ def my_globals(request):
 
 
 if __name__ == "__main__":
-    pass
+    ds = RemoteDataService()
+    
+    df, msg = ds.daily("000001.SH, 600030.SH, 000300.SH", start_date=20170801, end_date=20170820,
+                       fields="open,high,low,close,vwap,preclose")
+    ds.api.close()
+    
+    multi_index_names = ['trade_date', 'symbol']
+    df_multi = df.set_index(multi_index_names, drop=False)
+    df_multi.sort_index(axis=0, level=multi_index_names, inplace=True)
+    
+    dfx = df_multi.loc[pd.IndexSlice[:, :], pd.IndexSlice['close']].unstack()
+    dfy = df_multi.loc[pd.IndexSlice[:, :], pd.IndexSlice['open']].unstack()
+    
+    parser = Parser()
+    
+    g = globals()
+    g = {k: v for k, v in g.items() if k.startswith('test_') and callable(v)}
+    
+    for test_name, test_func in g.viewitems():
+        print "\nTesting {:s}...".format(test_name)
+        # try:
+        test_func()
+        # print "Successfully tested {:s}.".format(test_name)
+        # except Exception, e:
+    print "Test Complete."

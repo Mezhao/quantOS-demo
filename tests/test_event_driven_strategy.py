@@ -38,7 +38,7 @@ def test_double_ma():
     
     # backtest.run()
     backtest.run()
-    report = backtest.generate_report()
+    report = backtest.generate_report(output_format="")
     # print report.trades[:100]
     # for pnl in report.daily_pnls:
     #     print pnl.date, pnl.trade_pnl, pnl.hold_pnl,pnl.total_pnl, pnl.positions.get('600030.SH')
@@ -46,3 +46,4 @@ def test_double_ma():
 
 if __name__ == "__main__":
     test_double_ma()
+    print "test success."
