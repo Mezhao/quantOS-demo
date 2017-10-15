@@ -40,12 +40,8 @@ setup(
 						'python-snappy==0.5.1',
     ],
     license='Apache 2',
-    classifiers=['Development Status :: 4 - Beta',
-    'Programming Language :: Python :: 2.6',
+    classifiers=[
     'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.2',
-    'Programming Language :: Python :: 3.3',
-    'Programming Language :: Python :: 3.4',
-    'License :: OSI Approved :: BSD License'],
+    ],
     packages=find_packages(),
     )
