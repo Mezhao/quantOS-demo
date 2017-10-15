@@ -358,8 +358,8 @@ df, msg = api.query(
 | pcf\_ttm | double | PCF经营现金流 TTM |
 | ncf | double | 现金净流量 |
 | ncf\_ttm | double | 现金净流量TTM |
-| ps | double | 市销率(PS) |
-| ps\_ttm | double | 市销率(PS,TTM) |
+| ps | double | 市销率 |
+| ps\_ttm | double | 市销率 TTM |
 | turnover\_ratio | double | 换手率 |
 | turnover\_ratio\_float | double | 换手率(基准.自由流通股本) |
 | share\_amount | double | 当日总股本 |
@@ -369,13 +369,13 @@ df, msg = api.query(
 | high\_52w\_adj | double | 52周最高价(复权) |
 | low\_52w\_adj | double | 52周最低价（复权） |
 | share\_float\_free | double | 当日自由流通股本 |
-| nppc\_ttm | double | 归属母公司净利润(TTM) |
-| nppc\_lyr | double | 归属母公司净利润(LYR) |
+| nppc\_ttm | double | 归属母公司净利润 TTM |
+| nppc\_lyr | double | 归属母公司净利润 LYR |
 | net\_assets | double | 当日净资产 |
-| ncfoa\_ttm | double | 经营活动产生的现金流量净额(TTM) |
-| ncfoa\_lyr | double | 经营活动产生的现金流量净额(LYR) |
-| rev\_ttm | double | 营业收入(TTM) |
-| rev\_lyr | double | 营业收入(LYR) |
+| ncfoa\_ttm | double | 经营活动产生的现金流量净额 TTM |
+| ncfoa\_lyr | double | 经营活动产生的现金流量净额 LYR |
+| rev\_ttm | double | 营业收入 TTM |
+| rev\_lyr | double | 营业收入 LYR |
 | nicce\_ttm | double | 现金及现金等价物净增加额(TTM) |
 | nicce\_lyr | double | 现金及现金等价物净增加额(LYR) |
 | limit\_status | string | 涨跌停状态 |
@@ -816,7 +816,7 @@ df, msg = api.query(
 | plus\_end\_bal\_cash\_equ | double | 加:现金等价物的期末余额 |
 | less\_beg\_bal\_cash\_equ | double | 减:现金等价物的期初余额 |
 | im\_net\_incr\_cash\_cash\_equ | double | 间接法-现金及现金等价物净增加额 |
-| free\_cash\_flow | double | 企业自由现金流量(FCFF) |
+| free\_cash\_flow | double | 企业自由现金流量 |
 | spe\_bal\_cash\_inflows\_oper | double | 经营活动现金流入差额(特殊报表科目) |
 | tot\_bal\_cash\_inflows\_oper | double | 经营活动现金流入差额(合计平衡项目) |
 | spe\_bal\_cash\_outflows\_oper | double | 经营活动现金流出差额(特殊报表科目) |
@@ -869,14 +869,14 @@ df, msg = api.query(
 | symbol | string | 证券代码 |
 | ann\_date | string | 公告日期 |
 | report\_date | string | 报告期 |
-| oper\_rev | double | 营业收入(元) |
-| oper\_profit | double | 营业利润(元) |
-| total\_profit | double | 利润总额(元) |
-| net\_profit\_int\_inc | double | 净利润(元) |
-| total\_assets | double | 总资产(元) |
+| oper\_rev | double | 营业收入 |
+| oper\_profit | double | 营业利润 |
+| total\_profit | double | 利润总额 |
+| net\_profit\_int\_inc | double | 净利润 |
+| total\_assets | double | 总资产 |
 | tot\_shrhldr\_int | double | 股东权益合计 |
-| eps\_diluted | double | 每股收益(摊薄)(元) |
-| roe\_diluted | double | 净资产收益率(摊薄)(%) |
+| eps\_diluted | double | 每股收益(摊薄) |
+| roe\_diluted | double | 净资产收益率(摊薄) |
 | is\_audit | double | 是否审计 |
 | yoy\_int\_inc | double | 去年同期修正后净利润 |
 
@@ -1019,8 +1019,8 @@ df, msg = api.query(
 | stm\_is | double | 折旧与摊销 |
 | ebit | double | 息税前利润 |
 | ebitda | double | 息税折旧摊销前利润 |
-| fcff | double | 企业自由现金流量(FCFF) |
-| fcfe | double | 股权自由现金流量(FCFE) |
+| fcff | double | 企业自由现金流量 |
+| fcfe | double | 股权自由现金流量 |
 | exinterestdebt\_current | double | 无息流动负债 |
 | exinterestdebt\_noncurrent | double | 无息非流动负债 |
 | interestdebt | double | 带息债务 |
