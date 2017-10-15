@@ -39,5 +39,5 @@ setup(
     'Programming Language :: Python :: 2.7',
     ],
     packages=find_packages(),
-    package_data={'': ['*.json']},
+    package_data={'': ['*.json', '*.css', '*.html']},
     )
