@@ -4,7 +4,6 @@
 在这里，你将可以获得：
 
 - 使用数据API，轻松获取研究数据
-- 使用信号研究工具，进行交易信号的快速定义、研究、回测
 - 根据策略模板，编写自己的量化策略
 - 使用回测框架，对策略进行回测和验证
 
@@ -13,17 +12,14 @@
 
 	pytest
 	Jinja2
-	statsmodels
 	matplotlib
 	msgpack_python
 	nose_parameterized
-	pypandoc
 	seaborn
-	setuptools
 	six
-	ctypes_snappy
 	xarray
 	pyzmq
+	python-snappy
 
 	
 # Installation
@@ -32,7 +28,7 @@
 
 -  Windows 64-bit
 -  GNU/Linux 64-bit
--  Mac OS
+
 
 如果还没有Python环境，建议先安装所对应操作系统的Python集成开发环境 [Anaconda](http://www.continuum.io/downloads "Anaconda")，再安装quantos。
 
