@@ -296,8 +296,7 @@ df, msg = api.query(
                 view="jz.sysConstants", 
                 fields="", 
                 filter="code_type=inst_type", 
-                data_format='pandas'
-                )
+                data_format='pandas')
 ```
 
 ### 输入参数
