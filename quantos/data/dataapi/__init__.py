@@ -1,2 +1,1 @@
-from data_api import DataApi
-
+"""Core data api for fetching data from remote service."""
