@@ -11,9 +11,6 @@
 
 # Dependencies
 
-	scipy==0.19.0
-	pandas==0.20.1
-	numpy==1.12.1
 	pytest==3.0.7
 	Jinja2==2.9.6
 	statsmodels==0.8.0
