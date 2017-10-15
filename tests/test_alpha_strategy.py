@@ -41,34 +41,30 @@ def read_props(fp):
     return props
 
 
-def my_selector(symbol, trade_date, dataview):
-    df = dataview.get_snapshot(trade_date, symbol, 'close,pb')
-    close = df.loc[symbol, 'close']
-    pb = df.loc[symbol, 'pb']
+def save_dataview(sub_folder='test_dataview'):
+    ds = RemoteDataService()
+    dv = DataView()
     
-    return close * pb > 123
+    props = {'start_date': 20141114, 'end_date': 20160327, 'universe': '000300.SH',
+             'fields': ('open,high,low,close,vwap,volume,turnover,'
+                        # + 'pb,net_assets,'
+                        + 's_fa_eps_basic,oper_exp,tot_profit,int_income'
+                        ),
+             'freq': 1}
     
+    dv.init_from_config(props, ds)
+    dv.prepare_data()
     
-def pb_factor(symbol, context=None, user_options=None):
-    coef = user_options['coef']
-    data_api = context.data_api
-    # pb = data_api.get(symbol, field='pb', start_date=20170303, end_date=20170305)
-    pb = 1.
-    res = np.power(1. / pb, coef)
-    return res
+    factor_formula = 'close > Ts_Max(close, 20)'  # 20 days new high
+    factor_name = 'new_high'
+    dv.add_formula(factor_name, factor_formula, is_quarterly=False)
+    
+    dv.save_dataview(folder_path=fileio.join_relative_path('../output/prepared'), sub_folder=sub_folder)
 
 
-def pb_factor_dataview(context=None, user_options=None):
+def my_factor(context=None, user_options=None):
     dv = context.dataview
-    return dv.get_snapshot(context.trade_date, fields="open")
-
-
-def gtja_factor_dataview(context=None, user_options=None):
-    dv = context.dataview
-    res = dv.get_snapshot(context.trade_date, fields='ret20')
-    # res.loc[:, :] = np.random.rand
-    # res[res < 1e-2] = 0.0
-    res.iloc[:, 0] = np.random.rand(res.shape[0])
+    res = dv.get_snapshot(context.trade_date, fields='close')
     return res
 
 
@@ -76,83 +72,13 @@ def my_commission(symbol, turnover, context=None, user_options=None):
     return turnover * user_options['myrate']
 
 
-def test_alpha_strategy():
-    gateway = DailyStockSimGateway()
-    remote_data_service = RemoteDataService()
-
-    prop_file_path = fileio.join_relative_path('etc', 'alpha.json')
-    props = read_props(prop_file_path)
-    """
-    props = {
-        "benchmark": "000300.SH",
-        "universe": "600026.SH,600027.SH,600028.SH,600029.SH,600030.SH,600031.SH",
-    
-        "period": "week",
-        "days_delay": 2,
-    
-        "init_balance": 1e7,
-        "position_ratio": 0.7,
-    
-        "start_date": 20120101,
-        "end_date": 20170601,
-        }
-
-    """
-
-    remote_data_service.init_from_config(props)
-    remote_data_service.initialize()
-    gateway.init_from_config(props)
-
-    context = model.Context()
-    context.register_data_api(remote_data_service)
-    context.register_gateway(gateway)
-    context.register_trade_api(gateway)
-    
-    risk_model = model.FactorRiskModel()
-    signal_model = model.FactorRevenueModel()
-    cost_model = model.SimpleCostModel()
-    
-    risk_model.register_context(context)
-    signal_model.register_context(context)
-    cost_model.register_context(context)
-    
-    signal_model.register_func('pb_factor', pb_factor)
-    signal_model.activate_func({'pb_factor': {'coef': 3.27}})
-    cost_model.register_func('my_commission', my_commission)
-    cost_model.activate_func({'my_commission': {'myrate': 1e-2}})
-    
-    strategy = DemoAlphaStrategy(risk_model, signal_model, cost_model)
-    # strategy.register_context(context)
-    # strategy.active_pc_method = 'equal_weight'
-    strategy.active_pc_method = 'mc'
-    
-    backtest = AlphaBacktestInstance()
-    backtest.init_from_config(props, strategy, context=context)
-    
-    backtest.run_alpha()
-    
-    backtest.save_results('../output/')
-    
-    
-def save_dataview():
-    from quantos.data.dataservice import RemoteDataService
-    
-    ds = RemoteDataService()
-    dv = DataView()
-    
-    props = {'start_date': 20141114, 'end_date': 20161114, 'universe': '000300.SH',
-             'fields': 'open,close,high,low,volume,turnover,vwap,' + 'oper_rev,oper_exp',
-             'freq': 1}
-    
-    dv.init_from_config(props, data_api=ds)
-    dv.prepare_data()
-    dv.save_dataview(folder_path='../output/prepared')
-
-
 def test_alpha_strategy_dataview():
+    dv_subfolder_name = 'test_dataview'
+    save_dataview(sub_folder=dv_subfolder_name)
+    
     dv = DataView()
 
-    fullpath = fileio.join_relative_path('../output/prepared/20141114_20170827_freq=1D')
+    fullpath = fileio.join_relative_path('../output/prepared', dv_subfolder_name)
     dv.load_dataview(folder=fullpath)
     
     props = {
@@ -186,8 +112,8 @@ def test_alpha_strategy_dataview():
     signal_model.register_context(context)
     cost_model.register_context(context)
     
-    signal_model.register_func('gtja', gtja_factor_dataview)
-    signal_model.activate_func({'gtja': {}})
+    signal_model.register_func('my_factor', my_factor)
+    signal_model.activate_func({'my_factor': {}})
     cost_model.register_func('my_commission', my_commission)
     cost_model.activate_func({'my_commission': {'myrate': 1e-2}})
     
@@ -201,16 +127,12 @@ def test_alpha_strategy_dataview():
     
     bt.run_alpha()
     
-    bt.save_results('../output/')
+    bt.save_results(fileio.join_relative_path('../output/'))
 
 if __name__ == "__main__":
     t_start = time.time()
 
-    # save_dataview()
-    # test_alpha_strategy()
     test_alpha_strategy_dataview()
-    # test_prepare()
-    # test_read()
     
     t3 = time.time() - t_start
     print "\n\n\nTime lapsed in total: {:.1f}".format(t3)

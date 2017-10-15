@@ -177,10 +177,10 @@ def test_dataview_universe():
     
 
 if __name__ == "__main__":
-    test_write()
-    test_add_field()
-    test_add_formula()
-    test_add_formula_directly()
-    test_quarterly()
-    test_add_field_quarterly()
-    test_add_formula_quarterly()
+    g = globals()
+    g = {k: v for k, v in g.items() if k.startswith('test_') and callable(v)}
+
+    for test_name, test_func in g.viewitems():
+        print "\nTesting {:s}...".format(test_name)
+        test_func()
+    print "Test Complete."
