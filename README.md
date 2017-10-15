@@ -11,29 +11,27 @@
 
 # Dependencies
 
-	pytest==3.0.7
-	Jinja2==2.9.6
-	statsmodels==0.8.0
-	matplotlib==2.0.2
-	ipython==6.2.1
-	msgpack_python==0.4.8
-	nose_parameterized==0.6.0
-	pypandoc==1.4
-	seaborn==0.8.1
-	setuptools==36.6.0
-	six==1.11.0
-	ctypes_snappy==1.03
-	xarray==0.9.6
-	pyzmq==17.0.0b1
+	pytest
+	Jinja2
+	statsmodels
+	matplotlib
+	msgpack_python
+	nose_parameterized
+	pypandoc
+	seaborn
+	setuptools
+	six
+	ctypes_snappy
+	xarray
+	pyzmq
 
 	
-
 # Installation
 
 目前可以在如下操作系统上安装
 
--  GNU/Linux 64-bit
 -  Windows 64-bit
+-  GNU/Linux 64-bit
 -  Mac OS
 
 如果还没有Python环境，建议先安装所对应操作系统的Python集成开发环境 [Anaconda](http://www.continuum.io/downloads "Anaconda")，再安装quantos。
@@ -46,7 +44,7 @@
 
 2、通过源代码安装
 --------
-clone quantOS的源代码，进入到源文件目录，执行安装命令：
+clone https://github.com/quantOS-org/quantos.git，进入到源文件目录，执行安装命令：
 	
 	$ python setup.py install
 或者通过pypi地址[https://pypi.python.org/quantOS-Org/quantos](https://pypi.python.org/quantOS-Org/quantos) 下载,并执行上面安装命令。
@@ -54,7 +52,7 @@ clone quantOS的源代码，进入到源文件目录，执行安装命令：
 3、代码升级
 --------
 
-	$ python install quantos --upgrade
+	$ pip install quantos --upgrade
 
 # Quickstart
 
