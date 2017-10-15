@@ -4,7 +4,6 @@ import datetime
 
 import numpy as np
 import pandas as pd
-from pandas.tseries import offsets
 
 from quantos.data.dataservice import RemoteDataService
 from quantos.util import dtutil

@@ -1,15 +1,6 @@
 # encoding: utf-8
 
-import sys
-sys.path.append('/home/bliu/work/myproj/quantos/trunk')
 from quantos.data.dataview import DataView
-
-
-def test_xarray():
-    import numpy as np
-    import xarray as xr
-    
-    a = xr.DataArray(np.random.randn(2, 3))
 
 
 def test_add_formula_directly():
@@ -186,12 +177,10 @@ def test_dataview_universe():
     
 
 if __name__ == "__main__":
-    # test_write()
-    # test_read()
-    # test_xarray()
-    # test_add_field()
-    # test_add_formula()
-    # test_add_formula_directly()
+    test_write()
+    test_add_field()
+    test_add_formula()
+    test_add_formula_directly()
     test_quarterly()
-    # test_add_field_quarterly()
-    # test_add_formula_quarterly()
+    test_add_field_quarterly()
+    test_add_formula_quarterly()
