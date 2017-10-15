@@ -187,6 +187,9 @@ def test_remote_data_service_inst_info():
     assert res.loc[0, 'buylot'] == 100
     
 if __name__ == "__main__":
+    import time
+    t_start = time.time()
+    
     g = globals()
     g = {k: v for k, v in g.items() if k.startswith('test_') and callable(v)}
 
@@ -194,3 +197,6 @@ if __name__ == "__main__":
         print "\nTesting {:s}...".format(test_name)
         test_func()
     print "Test Complete."
+    
+    t3 = time.time() - t_start
+    print "\n\n\nTime lapsed in total: {:.1f}".format(t3)
