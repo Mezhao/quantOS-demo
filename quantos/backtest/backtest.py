@@ -148,11 +148,13 @@ class AlphaBacktestInstance(BacktestInstance):
         df_trades = pd.DataFrame(ser_list)
         df_trades.index.name = 'index'
         
-        fn = folder + 'trades.csv'
-        fileio.create_dir(fn)
-        df_trades.to_csv(fn)
+        from os.path import join
+        trades_fn = join(folder, 'trades.csv')
+        configs_fn = join(folder, 'configs.json')
+        fileio.create_dir(trades_fn)
         
-        fileio.save_json(self.props, folder + 'configs.json')
+        df_trades.to_csv(trades_fn)
+        fileio.save_json(self.props, configs_fn)
 
         print ("Backtest results has been successfully saved to:\n" + folder)
 
@@ -392,5 +394,5 @@ class EventBacktestInstance(BacktestInstance):
         # on_quote
         self.strategy.on_quote(quote)
 
-    def generate_report(self):
-        return self.pnlmgr.generateReport()
+    def generate_report(self, output_format=""):
+        return self.pnlmgr.generateReport(output_format)

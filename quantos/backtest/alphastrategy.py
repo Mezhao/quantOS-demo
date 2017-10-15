@@ -527,6 +527,7 @@ class AlphaStrategy(Strategy):
         """
         self.portfolio_construction()
         
+        '''
         # DEBUG
         print "weights sum = {:.2f}".format(np.sum(self.weights.values()))
         import pandas as pd
@@ -534,6 +535,7 @@ class AlphaStrategy(Strategy):
         dfw.sort_values(inplace=True)
         print dfw.tail()
         # DEBUG
+        '''
 
     def re_balance_plan_after_open(self, univ_price_dic, suspensions=None):
         """
@@ -578,6 +580,7 @@ class AlphaStrategy(Strategy):
         self.cash = cash_remain + cash_unuse
         # self.liquidate_all()
         # self.place_batch_order(orders)
+        '''
         # ----------------------------------------
         #  DEBUG validation
         import pandas as pd
@@ -594,6 +597,7 @@ class AlphaStrategy(Strategy):
         # assert rank_dv == rank_weights
         #  DEBUG validation
         # ----------------------------------------
+        '''
     
         self.on_after_rebalance(cash_available)
         
