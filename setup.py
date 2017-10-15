@@ -34,18 +34,14 @@ setup(
 						'seaborn==0.8.1',
 						'setuptools==36.6.0',
 						'six==1.11.0',
-						'ctypes_snappy==1.03',
 						'xarray==0.9.6',
 						'pyzmq==17.0.0b1',
-
+						'msgpack_python==0.4.8',
+						'python-snappy==0.5.1',
     ],
     license='Apache 2',
-    classifiers=['Development Status :: 4 - Beta',
-    'Programming Language :: Python :: 2.6',
+    classifiers=[
     'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.2',
-    'Programming Language :: Python :: 3.3',
-    'Programming Language :: Python :: 3.4',
-    'License :: OSI Approved :: BSD License'],
+    ],
     packages=find_packages(),
     )
