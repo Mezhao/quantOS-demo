@@ -31,9 +31,6 @@ df, msg = api.query(
 | market | string | 交易所代码 |
 | symbol | string | 证券代码 |
 | name | string | 证券名称 |
-<!-- | fullname | string | 证券全称 |
-| name\_en | string | 英文名称 |
-| fullname\_en | string | 英文全称  -->|
 | list\_date | string | 上市日期 |
 | delist\_date | string | 退市日期 |
 | cnspell | string | 拼音简写 |
