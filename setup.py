@@ -27,7 +27,6 @@ setup(
 						'Jinja2==2.9.6',
 						'statsmodels==0.8.0',
 						'matplotlib==2.0.2',
-						'ipython==6.2.1',
 						'msgpack_python==0.4.8',
 						'nose_parameterized==0.6.0',
 						'pypandoc==1.4',
