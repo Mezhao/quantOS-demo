@@ -25,7 +25,7 @@ from quantos.example.demoalphastrategy import DemoAlphaStrategy
 from quantos.util import fileio
 
 from quantos.util import fileio
-from quantos.backtest.backtest import AlphaBacktestInstance, AlphaBacktestInstance_dv
+from quantos.backtest.backtest import AlphaBacktestInstance_dv
 from quantos.backtest.gateway import DailyStockSimGateway
 from quantos.backtest import model
 from quantos.data.dataview import DataView
@@ -76,6 +76,7 @@ def my_commission(symbol, turnover, context=None, user_options=None):
     return turnover * user_options['myrate']
 
 
+'''
 def test_alpha_strategy():
     gateway = DailyStockSimGateway()
     remote_data_service = RemoteDataService()
@@ -126,7 +127,7 @@ def test_alpha_strategy():
     # strategy.active_pc_method = 'equal_weight'
     strategy.active_pc_method = 'mc'
     
-    backtest = AlphaBacktestInstance()
+    backtest = AlphaBacktestInstance_OLD_dataservice()
     backtest.init_from_config(props, strategy, context=context)
     
     backtest.run_alpha()
@@ -134,19 +135,40 @@ def test_alpha_strategy():
     backtest.save_results('../output/')
     
     
+'''
+
+
 def save_dataview():
-    from quantos.data.dataservice import RemoteDataService
+    # total 130 seconds
     
     ds = RemoteDataService()
     dv = DataView()
     
-    props = {'start_date': 20141114, 'end_date': 20161114, 'universe': '000300.SH',
-             'fields': 'open,close,high,low,volume,turnover,vwap,' + 'oper_rev,oper_exp',
+    props = {'start_date': 20141114, 'end_date': 20170327, 'universe': '000300.SH',
+             # 'symbol': 'rb1710.SHF,rb1801.SHF',
+             'fields': ('open,high,low,close,vwap,volume,turnover,'
+                        # + 'pb,net_assets,'
+                        + 'total_oper_rev,oper_exp,tot_profit,int_income'
+                        ),
              'freq': 1}
     
-    dv.init_from_config(props, data_api=ds)
+    dv.init_from_config(props, ds)
     dv.prepare_data()
-    dv.save_dataview(folder_path='../output/prepared')
+    
+    factor_formula = '-1 * Rank(Ts_Max(Delta(vwap, 7), 11))'  # GTJA
+    factor_name = 'gtja'
+    dv.add_formula(factor_name, factor_formula)
+    dv.add_formula('eps_ret_wrong', 'Return(eps, 3)', is_quarterly=False)
+    tmp = dv.get_ts('eps_ret_wrong')
+    dv.add_formula('eps_ret', 'Return(eps, 3)', is_quarterly=True)
+    tmp = dv.get_ts('eps_ret')
+    
+    
+    dv.add_formula('look_ahead', 'Delay(Return(close_adj, 5), -5)')
+    dv.add_formula('ret1', 'Return(close_adj, 1)')
+    dv.add_formula('ret20', 'Delay(Return(close_adj, 20), -20)')
+    
+    dv.save_dataview(folder_path=fileio.join_relative_path('../output/prepared'))
 
 
 def test_alpha_strategy_dataview():

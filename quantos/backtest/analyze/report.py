@@ -2,11 +2,12 @@
 
 import os
 import jinja2
+from quantos.util import fileio
 # from weasyprint import HTML
 
 
 class Report(object):
-    def __init__(self, dic, source_dir, template_fn, css_fn, out_folder='.'):
+    def __init__(self, dic, source_dir, template_fn, out_folder='.'):
         """
 
         Parameters
@@ -16,15 +17,12 @@ class Report(object):
             path of directory where HTML template and css files are stored.
         template_fn : str
             File name of HTML template.
-        css_fn : str
-            File name of css file.
         out_folder : str
             Output folder of report.
 
         """
         self.dic = dic
         self.template_fn = template_fn
-        self.css_fn = css_fn
         self.out_folder = os.path.abspath(out_folder)
 
         self.env = jinja2.Environment(loader=jinja2.FileSystemLoader(searchpath=[source_dir]))
@@ -46,8 +44,9 @@ class Report(object):
         self.html = self.template.render(self.dic)
     
     def output_html(self, fn='test_out.html'):
-        path = os.path.join(self.out_folder, fn)
-        path = os.path.abspath(path)
+        path = os.path.abspath(os.path.join(self.out_folder, fn))
+        
+        fileio.create_dir(path)
         with open(path, 'w') as f:
             f.write(self.html)
 

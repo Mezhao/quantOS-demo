@@ -1150,9 +1150,19 @@ class DataView(object):
         
         return res
 
-    def save_dataview(self, folder_path="."):
-        """Save data and meta_data_to_store to a single hd5 file."""
-        sub_folder = "{:d}_{:d}_freq={:d}D".format(self.start_date, self.end_date, self.freq)
+    def save_dataview(self, folder_path=".", sub_folder=""):
+        """
+        Save data and meta_data_to_store to a single hd5 file.
+        Store at output/sub_folder
+        
+        Parameters
+        ----------
+        folder_path : str
+        sub_folder : str
+
+        """
+        if not sub_folder:
+            sub_folder = "{:d}_{:d}_freq={:d}D".format(self.start_date, self.end_date, self.freq)
         
         folder_path = os.path.join(folder_path, sub_folder)
         abs_folder = os.path.abspath(folder_path)
