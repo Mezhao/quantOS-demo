@@ -39,8 +39,8 @@
 
 ```python
 df, msg = api.quote(
-				view="000001.SH, cu1709.SHF", 
-				fields="open,high,low,last,volume")
+                view="000001.SH, cu1709.SHF", 
+                fields="open,high,low,last,volume")
 ```
 
 输入参数：
@@ -125,11 +125,11 @@ df, msg = api.quote(
 查询示例：
 ```python
 df, msg = api.daily(
-				symbol="600832.SH, 600030.SH", 
-				start_date="2012-10-26",
-				end_date="2012-11-30", 
-				fields="", 
-				adjust_mode="post")
+                symbol="600832.SH, 600030.SH", 
+                start_date="2012-10-26",
+                end_date="2012-11-30", 
+                fields="", 
+                adjust_mode="post")
 ```
 返回字段：
 
@@ -176,11 +176,11 @@ df, msg = api.daily(
 查询示例：
 ```python
 df,msg = api.bar(
-			symbol="600030.SH", 
-			trade_date=20170928, 
-			freq="5m",
-			start_time="00:00:00",
-			end_time="16:00:00",
+            symbol="600030.SH", 
+            trade_date=20170928, 
+            freq="5m",
+            start_time="00:00:00",
+            end_time="16:00:00",
             fields="")
 ```
 返回字段：
@@ -231,12 +231,12 @@ df,msg = api.bar(
 
 ```python
 df,msg = api.bar_quote(
-					symbol="000001.SH,cu1709.SHF",  
-					start_time = "09:56:00", 
-					end_time="13:56:00", 
-					trade_date=20170823, 
-					freq= "5m",
-					fields="open,high,low,last,volume")
+                    symbol="000001.SH,cu1709.SHF",  
+                    start_time = "09:56:00", 
+                    end_time="13:56:00", 
+                    trade_date=20170823, 
+                    freq= "5m",
+                    fields="open,high,low,last,volume")
 ```
 返回字段：
 
@@ -304,11 +304,11 @@ df,msg = api.bar_quote(
 查询示例：
 ```python
 df, msg = api.tick(
-			view="000001.SH, cu1709.SHF",  
-			start_time = "09:56:00", 
-			end_time="13:56:00", 
-			trade_date="20170823", 
-			fields="open,high,low,last,volume")
+                view="000001.SH, cu1709.SHF",  
+                start_time = "09:56:00", 
+                end_time="13:56:00", 
+                trade_date="20170823", 
+                fields="open,high,low,last,volume")
 ```
 返回字段：
 
