@@ -20,14 +20,9 @@ setup(
     description='A opensource pathform for Quant inverstement with Python.',
     long_description = long_description,
     install_requires=[
-            'scipy==0.19.0',
-						'pandas==0.20.1',
-						'numpy==1.12.1',
 						'pytest==3.0.7',
 						'Jinja2==2.9.6',
-						'statsmodels==0.8.0',
 						'matplotlib==2.0.2',
-						'ipython==6.2.1',
 						'msgpack_python==0.4.8',
 						'nose_parameterized==0.6.0',
 						'pypandoc==1.4',
@@ -44,4 +39,5 @@ setup(
     'Programming Language :: Python :: 2.7',
     ],
     packages=find_packages(),
+    package_data={'': ['*.json']},
     )
