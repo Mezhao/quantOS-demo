@@ -735,27 +735,33 @@ class Parser(object):
         
         """
         
-        def lower_dic(dic):
+        def set_dic_key_capital(dic, style='upper'):
             """
             
             Parameters
             ----------
             dic : dict
+            style : {'upper', 'lower'}
+                upper for 'Rank', lower for 'rank'
 
             Returns
             -------
             dict
 
             """
-            return {k.lower(): v for k, v in dic.viewitems()}
+            if style == 'upper':
+                # TODO: not implement
+                # deli = '_'
+                # res = {deli.join(s.title() for s in k.split(deli)): v for k, v in dic.viewitems()}
+                res = dic
+            elif style == 'lower':
+                res = {k.lower(): v for k, v in dic.viewitems()}
+            else:
+                raise NotImplementedError("style = {}".format(style))
+            return res
         
-        if style == 'upper':
-            pass
-        elif style == 'lower':
-            self.functions = lower_dic(self.functions)
-            self.ops1 = lower_dic(self.ops1)
-        else:
-            raise NotImplementedError("style = {}".format(style))
+        self.functions = set_dic_key_capital(self.functions, style=style)
+        self.ops1 = set_dic_key_capital(self.ops1, style=style)
     
     def register_function(self, name, func):
         """Register a new function to function map.
