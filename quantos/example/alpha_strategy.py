@@ -25,7 +25,7 @@ from quantos.example.demoalphastrategy import DemoAlphaStrategy
 from quantos.util import fileio
 
 from quantos.util import fileio
-from quantos.backtest.backtest import AlphaBacktestInstance, AlphaBacktestInstance_dv
+from quantos.backtest.backtest import AlphaBacktestInstance_OLD_dataservice, AlphaBacktestInstance_dv
 from quantos.backtest.gateway import DailyStockSimGateway
 from quantos.backtest import model
 from quantos.data.dataview import DataView
@@ -126,7 +126,7 @@ def test_alpha_strategy():
     # strategy.active_pc_method = 'equal_weight'
     strategy.active_pc_method = 'mc'
     
-    backtest = AlphaBacktestInstance()
+    backtest = AlphaBacktestInstance_OLD_dataservice()
     backtest.init_from_config(props, strategy, context=context)
     
     backtest.run_alpha()

@@ -19,13 +19,12 @@ suspensions and limit reachers:
 """
 import time
 
-import numpy as np
 from quantos.data.dataservice import RemoteDataService
 from quantos.example.demoalphastrategy import DemoAlphaStrategy
-from quantos.util import fileio
 
 from quantos.util import fileio
-from quantos.backtest.backtest import AlphaBacktestInstance, AlphaBacktestInstance_dv
+import quantos.backtest.analyze.analyze as ana
+from quantos.backtest.backtest import AlphaBacktestInstance_dv
 from quantos.backtest.gateway import DailyStockSimGateway
 from quantos.backtest import model
 from quantos.data.dataview import DataView
@@ -129,10 +128,46 @@ def test_alpha_strategy_dataview():
     
     bt.save_results(fileio.join_relative_path('../output/'))
 
+
+def test_backtest_analyze():
+    ta = ana.AlphaAnalyzer()
+    data_service = RemoteDataService()
+    
+    out_folder = fileio.join_relative_path("../output")
+    
+    ta.initialize(data_service, out_folder)
+    
+    print "process trades..."
+    ta.process_trades()
+    print "get daily stats..."
+    ta.get_daily()
+    print "calc strategy return..."
+    ta.get_returns()
+    # print "get position change..."
+    # ta.get_pos_change_info()
+    
+    selected_sec = list(ta.universe)[:3]
+    if len(selected_sec) > 0:
+        print "Plot single securities PnL"
+        for symbol in selected_sec:
+            df_daily = ta.daily.get(symbol, None)
+            if df_daily is not None:
+                ana.plot_trades(df_daily, symbol=symbol, save_folder=out_folder)
+    
+    print "Plot strategy PnL..."
+    ta.plot_pnl(out_folder)
+    
+    print "generate report..."
+    static_folder = fileio.join_relative_path("backtest/analyze/static")
+    ta.gen_report(source_dir=static_folder, template_fn='report_template.html',
+                  css_fn='blueprint.css', out_folder=out_folder,
+                  selected=selected_sec)
+
 if __name__ == "__main__":
     t_start = time.time()
 
     test_alpha_strategy_dataview()
+    test_backtest_analyze()
     
     t3 = time.time() - t_start
     print "\n\n\nTime lapsed in total: {:.1f}".format(t3)

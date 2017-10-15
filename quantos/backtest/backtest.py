@@ -55,7 +55,8 @@ class BacktestInstance(Subscriber):
         return True
 
 
-class AlphaBacktestInstance(BacktestInstance):
+'''
+class AlphaBacktestInstance_OLD_dataservice(BacktestInstance):
     def __init__(self):
         BacktestInstance.__init__(self)
         
@@ -159,11 +160,21 @@ class AlphaBacktestInstance(BacktestInstance):
         print ("Backtest results has been successfully saved to:\n" + folder)
 
 
-class AlphaBacktestInstance_dv(AlphaBacktestInstance):
+'''
+
+
+class AlphaBacktestInstance_dv(BacktestInstance):
     """
     Backtest alpha strategy using DataView.
 
     """
+    def __init__(self):
+        BacktestInstance.__init__(self)
+    
+        self.last_rebalance_date = 0
+        self.current_rebalance_date = 0
+        self.trade_days = None
+
     def position_adjust(self):
         """
         adjust happens after market close
@@ -253,15 +264,77 @@ class AlphaBacktestInstance_dv(AlphaBacktestInstance):
         gp = df.groupby(by='symbol')
         return {sec: df for sec, df in gp}
     
-    def _is_trade_date(self, start, end, date, data_server):
+    def _is_trade_date(self, date):
         return date in self.ctx.dataview.dates
+    
+    def go_next_date(self):
+        """update self.current_date and last_date."""
+        if self.ctx.gateway.match_finished:
+            next_period_day = dtutil.get_next_period_day(self.current_date,
+                                                         self.strategy.period, self.strategy.days_delay)
+            # update current_date: next_period_day is a workday, but not necessarily a trade date
+            if self.ctx.calendar.is_trade_date(next_period_day):
+                self.current_date = next_period_day
+            else:
+                self.current_date = self.ctx.calendar.get_next_trade_date(next_period_day)
+            self.current_date = self.ctx.calendar.get_next_trade_date(next_period_day)
+        
+            # update re-balance date
+            if self.current_rebalance_date > 0:
+                self.last_rebalance_date = self.current_rebalance_date
+            else:
+                self.last_rebalance_date = self.start_date
+            self.current_rebalance_date = self.current_date
+        else:
+            # TODO here we must make sure the matching will not last to next period
+            self.current_date = self.ctx.calendar.get_next_trade_date(self.current_date)
+    
+        self.last_date = self.ctx.calendar.get_last_trade_date(self.current_date)
     
     def get_suspensions(self):
         trade_status = self.ctx.dataview.get_snapshot(self.current_date, fields='trade_status')
         trade_status = trade_status.loc[:, 'trade_status']
         mask_sus = trade_status != u'交易'.encode('utf-8')
         return list(trade_status.loc[mask_sus].index.values)
+
+    def on_new_day(self, date):
+        self.ctx.trade_date = date
+        self.strategy.on_new_day(date)
+        self.ctx.gateway.on_new_day(date)
+
+    def save_results(self, folder='../output/'):
+        import pandas as pd
     
+        trades = self.strategy.pm.trades
+    
+        type_map = {'task_id': str,
+                    'entrust_no': str,
+                    'entrust_action': str,
+                    'symbol': str,
+                    'fill_price': float,
+                    'fill_size': int,
+                    'fill_date': int,
+                    'fill_time': int,
+                    'fill_no': str}
+        # keys = trades[0].__dict__.keys()
+        ser_list = dict()
+        for key in type_map.keys():
+            v = [t.__getattribute__(key) for t in trades]
+            ser = pd.Series(data=v, index=None, dtype=type_map[key], name=key)
+            ser_list[key] = ser
+        df_trades = pd.DataFrame(ser_list)
+        df_trades.index.name = 'index'
+    
+        from os.path import join
+        trades_fn = join(folder, 'trades.csv')
+        configs_fn = join(folder, 'configs.json')
+        fileio.create_dir(trades_fn)
+    
+        df_trades.to_csv(trades_fn)
+        fileio.save_json(self.props, configs_fn)
+    
+        print ("Backtest results has been successfully saved to:\n" + folder)
+
 
 class EventBacktestInstance(BacktestInstance):
     def __init__(self):
