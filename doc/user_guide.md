@@ -1,3 +1,16 @@
+
+
+
+# User Guide
+
+本页面给用户提供了一个简洁清晰的入门指南<br/>
+详细的API Reference请参考
+
+- [行情数据API](market_data.md "行情数据API")
+- [参考数据API](base_data.md "参考数据API")
+
+# Contents
+
 [DataApi](#DataApi)<br/>
 　[导入接口](#导入接口)<br/>
 　　[引入模块](#引入模块)<br/>
@@ -9,15 +22,6 @@
 [Research](#Research)<br/>
 [Strategy](#Strategy)<br/>
 [BackTest](#BackTest)<br/>
-
-
-# User Guide
-
-本页面给用户提供了一个简洁清晰的入门指南<br/>
-详细的API Reference请参考
-
-- [行情数据API](market_data.md "行情数据API")
-- [参考数据API](base_data.md "参考数据API")
 
 <!-- ## DataApi  -->
 <h2 id = "DataApi">DataApi</h2>
@@ -153,8 +157,7 @@ df, msg = api.query(
                 view="lb.indexInfo", 
                 fields="", 
                 filter="", 
-                data_format='pandas' 
-                )
+                data_format='pandas')
 ```
 
 结果示例(前5条记录)：
