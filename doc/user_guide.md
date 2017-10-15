@@ -1,10 +1,11 @@
 # User Guide
 
-本页面给用户提供了一个简洁清晰的入门指南，包括从安装到代码调用的用法
-API Reference请参考
+本页面给用户提供了一个简洁清晰的入门指南<br/>
 
-- [行情数据API](market_data.md "行情数据API")
-- [参考数据API](base_data.md "参考数据API")
+详细的API Reference请参考
+
+- [行情数据API](/market_data.md)
+- [参考数据API](/base_data.md)
 
 ## DataApi 
 
