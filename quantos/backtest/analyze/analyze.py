@@ -327,7 +327,7 @@ class AlphaAnalyzer(BaseAnalyzer):
         plt.tight_layout()
         fig.savefig(save_folder + '/' + 'pnl_img.png')
 
-    def gen_report(self, source_dir, template_fn, css_fn, out_folder='.', selected=None):
+    def gen_report(self, source_dir, template_fn, out_folder='.', selected=None):
         """
         Generate HTML (and PDF) report of the backtest analysis.
 
@@ -337,8 +337,6 @@ class AlphaAnalyzer(BaseAnalyzer):
             path of directory where HTML template and css files are stored.
         template_fn : str
             File name of HTML template.
-        css_fn : str
-            File name of css file.
         out_folder : str
             Output folder of report.
         selected : list of str or None
@@ -355,7 +353,7 @@ class AlphaAnalyzer(BaseAnalyzer):
         dic['position_change'] = self.position_change
         dic['account'] = self.account
         
-        r = Report(dic, source_dir=source_dir, template_fn=template_fn, css_fn=css_fn, out_folder=out_folder)
+        r = Report(dic, source_dir=source_dir, template_fn=template_fn, out_folder=out_folder)
 
         r.generate_html()
         r.output_html('report.html')

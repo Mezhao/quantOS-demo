@@ -4,19 +4,15 @@ research/alphalens/example
 # cProfile results
 *.prof
 
-# Prepared DataView
-data/prepared
-
 # Personal Configs
 # etc/*.json
 
 # IDE configs
 .idea/
+.eclipse/
 
-# Backtest Results
+# Output Results
 output/
-analyze/static
-analyze/output
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

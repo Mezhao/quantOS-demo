@@ -25,7 +25,7 @@ from quantos.example.demoalphastrategy import DemoAlphaStrategy
 from quantos.util import fileio
 
 from quantos.util import fileio
-from quantos.backtest.backtest import AlphaBacktestInstance_OLD_dataservice, AlphaBacktestInstance_dv
+from quantos.backtest.backtest import AlphaBacktestInstance_dv
 from quantos.backtest.gateway import DailyStockSimGateway
 from quantos.backtest import model
 from quantos.data.dataview import DataView
@@ -76,6 +76,7 @@ def my_commission(symbol, turnover, context=None, user_options=None):
     return turnover * user_options['myrate']
 
 
+'''
 def test_alpha_strategy():
     gateway = DailyStockSimGateway()
     remote_data_service = RemoteDataService()
@@ -134,6 +135,9 @@ def test_alpha_strategy():
     backtest.save_results('../output/')
     
     
+'''
+
+
 def save_dataview():
     # total 130 seconds
     
