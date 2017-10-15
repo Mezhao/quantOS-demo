@@ -40,7 +40,7 @@
 
 2、通过源代码安装
 --------
-git clone [https://github.com/quantOS-org/quantos.git](https://github.com/quantOS-org/quantos.git) ，进入到源文件目录，执行安装命令：
+clone https://github.com/quantOS-org/quantos.git，进入到源文件目录，执行安装命令：
 	
 	$ python setup.py install
 或者通过pypi地址[https://pypi.python.org/quantOS-Org/quantos](https://pypi.python.org/quantOS-Org/quantos) 下载,并执行上面安装命令。
@@ -70,3 +70,6 @@ Change Logs
 ----
 1、发布第一个版本
 
+# License
+
+Apache 2.0许可协议。版权所有(c)2017 quantOS-org(量化开源会)。
